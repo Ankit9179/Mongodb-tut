@@ -37,18 +37,31 @@ app.use(express.json());
 //   }
 // });
 
-//update
-app.put("/update/:name", async (req, res) => {
+// //update
+// app.put("/update/:name", async (req, res) => {
+//   try {
+//     const db = await connectToMongo(); //db is our data base in mongo db like student
+//     const collection = db.collection("user"); //collection
+//     console.log(req.body);
+//     console.log(req.params);
+//     const result = collection.updateOne(
+//       { name: req.params.name },
+//       { $set: req.body }
+//     );
+//     res.json("updated");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+// delete
+app.delete("/delete/:name", async (req, res) => {
   try {
     const db = await connectToMongo(); //db is our data base in mongo db like student
     const collection = db.collection("user"); //collection
-    console.log(req.body);
-    console.log(req.params);
-    const result = collection.updateOne(
-      { name: req.params.name },
-      { $set: req.body }
-    );
-    res.json("updated");
+    const data = req.params.name;
+    const result = collection.deleteOne({ name: data });
+    res.send("deleted successfully");
   } catch (error) {
     console.log(error);
   }
