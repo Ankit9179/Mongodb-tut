@@ -25,14 +25,39 @@ const booksModel = mongoose.model("Books", booksSchema);
 //   }
 // });
 
-//post
-app.post("/books/add", async (req, res) => {
-  console.log(req.body);
+// //post
+// app.post("/books/add", async (req, res) => {
+//   console.log(req.body);
+//   try {
+//     const { title, price } = req.body;
+//     const data = new booksModel({ title, price });
+//     data.save();
+//     res.json(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+// //put
+// app.put("/books/update/:id", async (req, res) => {
+//   console.log(req.params);
+//   try {
+//     const {id} = req.body
+//     const { title, price } = req.body;
+//     const data = await booksModel.findByIdAndUpdate(id,{title,price})
+//     res.json(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+//delete
+app.delete("/books/delete/:id", async (req, res) => {
+  console.log(req.params);
   try {
-    const { title, price } = req.body;
-    const data = new booksModel({ title, price });
-    data.save();
-    res.json(data);
+    const { id } = req.params;
+    await booksModel.findByIdAndRemove(id);
+    res.sendStatus(204);
   } catch (error) {
     console.log(error);
   }
